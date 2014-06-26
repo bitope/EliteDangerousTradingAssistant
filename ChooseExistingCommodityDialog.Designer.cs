@@ -63,6 +63,7 @@
             // 
             // CancelButton
             // 
+            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CancelButton.Location = new System.Drawing.Point(177, 40);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(95, 23);
@@ -71,16 +72,18 @@
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // ChooseExistingCommodity
+            // ChooseExistingCommodityDialog
             // 
+            this.AcceptButton = this.SelectButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(284, 71);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.SelectButton);
             this.Controls.Add(this.CommodityLabel);
             this.Controls.Add(this.CommodityComboBox);
-            this.Name = "ChooseExistingCommodity";
+            this.Name = "ChooseExistingCommodityDialog";
             this.Text = "Choose Existing Commodity";
             this.ResumeLayout(false);
             this.PerformLayout();

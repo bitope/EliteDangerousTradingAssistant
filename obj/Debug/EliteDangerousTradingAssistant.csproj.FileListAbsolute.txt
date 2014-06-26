@@ -19,6 +19,6 @@ C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssi
 C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssistant\EliteDangerousTradingAssistant\bin\Debug\SaveData\Pre v 0_5 (Incomplete Data)\June072014.edassistant
 C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssistant\EliteDangerousTradingAssistant\obj\Debug\EliteDangerousTradingAssistant.TradesManifestsRoutesDialog.resources
 C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssistant\EliteDangerousTradingAssistant\obj\Debug\EliteDangerousTradingAssistant.ManifestEditorDialog.resources
-C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssistant\EliteDangerousTradingAssistant\bin\Debug\SaveData\SaveData_06082014.edassistant
 C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssistant\EliteDangerousTradingAssistant\obj\Debug\EliteDangerousTradingAssistant.RouteEditorDialog.resources
-C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssistant\EliteDangerousTradingAssistant\bin\Debug\SaveData\SaveData_06252014.edassistant
+C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssistant\EliteDangerousTradingAssistant\bin\Debug\SaveData\Pre v 0_6 (Incomplete Data)\SaveData_06082014.edassistant
+C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssistant\EliteDangerousTradingAssistant\bin\Debug\SaveData\SaveData_06262014.edassistant

@@ -79,8 +79,9 @@
             this.AddStationButton.UseVisualStyleBackColor = true;
             this.AddStationButton.Click += new System.EventHandler(this.AddStationButton_Click);
             // 
-            // AddStation
+            // AddStationDialog
             // 
+            this.AcceptButton = this.AddStationButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(322, 91);
@@ -90,7 +91,7 @@
             this.Controls.Add(this.SystemTextBox);
             this.Controls.Add(this.SystemLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "AddStation";
+            this.Name = "AddStationDialog";
             this.Text = "Add a Station";
             this.ResumeLayout(false);
             this.PerformLayout();

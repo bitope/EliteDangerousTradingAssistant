@@ -60,8 +60,9 @@
             this.AddButton.UseVisualStyleBackColor = true;
             this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
-            // AddSystem
+            // AddSystemDialog
             // 
+            this.AcceptButton = this.AddButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(316, 66);
@@ -69,7 +70,7 @@
             this.Controls.Add(this.SystemTextBox);
             this.Controls.Add(this.SystemLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "AddSystem";
+            this.Name = "AddSystemDialog";
             this.Text = "Add a System";
             this.ResumeLayout(false);
             this.PerformLayout();
