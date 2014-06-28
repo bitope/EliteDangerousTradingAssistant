@@ -1,0 +1,10 @@
+Changes for 0.7
+
+-Optimized the route calculations for the Adviser.
+	1. Routes that have short circuited (visited the same station twice) are no longer considered by the Adviser.
+	2. Route comparisons for each centered system/station stop as soon as adding the next highest manifest results in a decrease of the average profit per trip.
+	3. Route results are pared down by only providing the best average profit per jump for each centered system/station.
+
+-Fixed tabbing on dialog windows.
+
+-Added Accept and Cancel buttons where appropriate.

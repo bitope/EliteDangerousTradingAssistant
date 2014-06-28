@@ -130,6 +130,8 @@ namespace EliteDangerousTradingAssistant
                 {
                     Manifest lastBaseManifest = baseRoute.Manifests[baseRoute.Manifests.Count - 1];
 
+                    Route returnRoute = null;
+
                     //Find a return route.
                     bool foundReturnRoute = false;
                     int returnIndex = -1;
@@ -154,11 +156,8 @@ namespace EliteDangerousTradingAssistant
                         Manifest returnManifest = new Manifest(candidates[returnIndex]);
                         candidates.RemoveAt(returnIndex);
                         used.Add(returnManifest);
-
-                        Route returnRoute = new Route(baseRoute);
+                        returnRoute = new Route(baseRoute);
                         returnRoute.Manifests.Add(returnManifest);
-
-                        gameData.OptimalRoutes.Add(new Route(returnRoute));
                     }
 
                     //Find a new route.
@@ -185,13 +184,66 @@ namespace EliteDangerousTradingAssistant
                         Manifest newManifest = new Manifest(candidates[newIndex]);
                         candidates.RemoveAt(newIndex);
                         used.Add(newManifest);
-
                         baseRoute.Manifests.Add(newManifest);
                     }
 
-                    routeCalculationFinished = (foundReturnRoute == false && foundNewRoute == false);
+                    if (foundReturnRoute && (!foundNewRoute || baseRoute.AverageProfitPerTrip <= returnRoute.AverageProfitPerTrip))
+                    {
+                        bool shortCircuit = false;
+
+                        for (int x = 0; x < returnRoute.Manifests.Count; x++)
+                            for (int y = x + 1; y < returnRoute.Manifests.Count; y++)
+                            {
+                                Manifest check1 = returnRoute.Manifests[x];
+                                Manifest check2 = returnRoute.Manifests[y];
+
+                                if (check1.Trades[0].StartSystem.Name == check2.Trades[0].StartSystem.Name &&
+                                    check1.Trades[0].StartStation.Name == check2.Trades[0].StartStation.Name)
+                                    shortCircuit = true;
+                            }
+
+                        if (shortCircuit == false)
+                        {
+                            gameData.OptimalRoutes.Add(new Route(returnRoute));
+                            routeCalculationFinished = true;
+                        }
+                        else
+                            routeCalculationFinished = true;
+                    }
+
+                    if (foundReturnRoute == false && foundNewRoute == false)
+                        routeCalculationFinished = true;
                 }
             }
+
+            //Find the best route for each starting system/station
+            for (int x = 0; x < gameData.OptimalRoutes.Count; x++)
+                for (int y = x + 1; y < gameData.OptimalRoutes.Count; y++)
+                {
+                    Route check1 = gameData.OptimalRoutes[x];
+                    Route check2 = gameData.OptimalRoutes[y];
+
+                    string centerSystem1 = check1.CenterSystem;
+                    string centerSystem2 = check2.CenterSystem;
+                    string centerStation1 = check1.CenterStation;
+                    string centerStation2 = check2.CenterStation;
+
+                    if (check1.CenterSystem == check2.CenterSystem && check1.CenterStation == check2.CenterStation)
+                    {
+                        if (check1.AverageProfitPerTrip >= check2.AverageProfitPerTrip)
+                        {
+                            //Remove check2
+                            gameData.OptimalRoutes.RemoveAt(y);
+                            y--;
+                        }
+                        else
+                        {
+                            //Remove check1
+                            gameData.OptimalRoutes.RemoveAt(x);
+                            x = y - 1;
+                        }
+                    }
+                }
 
             //Check for duplicates and remove them.
             for (int x = 0; x < gameData.OptimalRoutes.Count; x++)

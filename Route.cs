@@ -11,6 +11,14 @@ namespace EliteDangerousTradingAssistant
         {
             get { return manifests; }
         }
+        public string CenterSystem
+        {
+            get { return manifests[0].Trades[0].StartSystem.Name; }
+        }
+        public string CenterStation
+        {
+            get { return manifests[0].Trades[0].StartStation.Name; }
+        }
         public decimal Trips
         {
             get { return manifests.Count; }
