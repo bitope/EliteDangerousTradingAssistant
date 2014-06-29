@@ -10,6 +10,7 @@ C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssi
 C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssistant\EliteDangerousTradingAssistant\bin\Debug\EliteDangerousTradingAssistant.exe.config
 C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssistant\EliteDangerousTradingAssistant\bin\Debug\EliteDangerousTradingAssistant.exe
 C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssistant\EliteDangerousTradingAssistant\bin\Debug\EliteDangerousTradingAssistant.pdb
+C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssistant\EliteDangerousTradingAssistant\obj\Debug\EliteDangerousTradingAssistant.csprojResolveAssemblyReference.cache
 C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssistant\EliteDangerousTradingAssistant\obj\Debug\EliteDangerousTradingAssistant.AddEditCommodityDialog.resources
 C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssistant\EliteDangerousTradingAssistant\obj\Debug\EliteDangerousTradingAssistant.AddStationDialog.resources
 C:\Users\Brandon\documents\visual studio 2013\Projects\EliteDangerousTradingAssistant\EliteDangerousTradingAssistant\obj\Debug\EliteDangerousTradingAssistant.AddSystemDialog.resources
