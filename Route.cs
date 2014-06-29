@@ -11,11 +11,19 @@ namespace EliteDangerousTradingAssistant
         {
             get { return manifests; }
         }
-        public string CenterSystem
+        public StarSystem CenterSystem
+        {
+            get { return manifests.Count > 0 ? manifests[0].StartSystem : null; }
+        }
+        public string CenterSystemName
         {
             get { return manifests[0].Trades[0].StartSystem.Name; }
         }
-        public string CenterStation
+        public Station CenterStation
+        {
+            get { return manifests.Count > 0 ? manifests[0].StartStation : null; }
+        }
+        public string CenterStationName
         {
             get { return manifests[0].Trades[0].StartStation.Name; }
         }

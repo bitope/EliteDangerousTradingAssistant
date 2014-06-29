@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace EliteDangerousTradingAssistant
 {
@@ -110,149 +111,110 @@ namespace EliteDangerousTradingAssistant
         {
             gameData.OptimalRoutes.Clear();
 
-            foreach (Manifest manifest in gameData.OptimalManifests)
-            {
-                Route start = new Route();
-                start.Manifests.Add(new Manifest(manifest));
-
-                List<Manifest> candidates = new List<Manifest>();
-                List<Manifest> used = new List<Manifest>();
-                used.Add(new Manifest(manifest));
-
-                foreach (Manifest candidate in gameData.OptimalManifests)
-                    AddManifestToLists(candidate, candidates, used);
-
-                bool routeCalculationFinished = false;
-
-                Route baseRoute = new Route(start);
-
-                while (routeCalculationFinished == false)
+            foreach (StarSystem startSystem in gameData.StarSystems)
+                foreach (Station startStation in startSystem.Stations)
                 {
-                    Manifest lastBaseManifest = baseRoute.Manifests[baseRoute.Manifests.Count - 1];
+                    Route candidateRoute = null;
 
-                    Route returnRoute = null;
-
-                    //Find a return route.
-                    bool foundReturnRoute = false;
-                    int returnIndex = -1;
-
-                    for (int x = 0; x < candidates.Count; x++)
-                    {
-                        Manifest candidate = new Manifest(candidates[x]);
-
-                        if (candidate.Trades[0].EndSystem.Name == start.Manifests[0].Trades[0].StartSystem.Name &&
-                            candidate.Trades[0].EndStation.Name == start.Manifests[0].Trades[0].StartStation.Name &&
-                            candidate.Trades[0].StartSystem.Name == lastBaseManifest.Trades[0].EndSystem.Name &&
-                            candidate.Trades[0].StartStation.Name == lastBaseManifest.Trades[0].EndStation.Name)
+                    //Find best first out and return pair.
+                    foreach (StarSystem endSystem in gameData.StarSystems)
+                        foreach (Station endStation in endSystem.Stations)
                         {
-                            foundReturnRoute = true;
-                            returnIndex = x;
-                            break;
-                        }
-                    }
+                            if (startSystem.Equals(endSystem) || startStation.Equals(endStation))
+                                continue;
 
-                    if (foundReturnRoute)
-                    {
-                        Manifest returnManifest = new Manifest(candidates[returnIndex]);
-                        candidates.RemoveAt(returnIndex);
-                        used.Add(returnManifest);
-                        returnRoute = new Route(baseRoute);
-                        returnRoute.Manifests.Add(returnManifest);
-                    }
+                            Manifest outManifest = FindManifest(gameData, startSystem, startStation, endSystem, endStation);
+                            Manifest returnManifest = FindManifest(gameData, endSystem, endStation, startSystem, startStation);
 
-                    //Find a new route.
-                    bool foundNewRoute = false;
-                    int newIndex = -1;
-                    decimal newProfit = 0;
-
-                    for (int x = 0; x < candidates.Count; x++)
-                    {
-                        Manifest candidate = new Manifest(candidates[x]);
-
-                        if (candidate.Trades[0].StartSystem.Name == lastBaseManifest.Trades[0].EndSystem.Name &&
-                            candidate.Trades[0].StartStation.Name == lastBaseManifest.Trades[0].EndStation.Name &&
-                            newProfit < candidate.Profit)
-                        {
-                            foundNewRoute = true;
-                            newIndex = x;
-                            newProfit = candidate.Profit;
-                        }
-                    }
-
-                    if (foundNewRoute)
-                    {
-                        Manifest newManifest = new Manifest(candidates[newIndex]);
-                        candidates.RemoveAt(newIndex);
-                        used.Add(newManifest);
-                        baseRoute.Manifests.Add(newManifest);
-                    }
-
-                    if (foundReturnRoute && (!foundNewRoute || baseRoute.AverageProfitPerTrip <= returnRoute.AverageProfitPerTrip))
-                    {
-                        bool shortCircuit = false;
-
-                        for (int x = 0; x < returnRoute.Manifests.Count; x++)
-                            for (int y = x + 1; y < returnRoute.Manifests.Count; y++)
+                            if (outManifest == null || returnManifest == null)
+                                continue;
+                            else
                             {
-                                Manifest check1 = returnRoute.Manifests[x];
-                                Manifest check2 = returnRoute.Manifests[y];
-
-                                if (check1.Trades[0].StartSystem.Name == check2.Trades[0].StartSystem.Name &&
-                                    check1.Trades[0].StartStation.Name == check2.Trades[0].StartStation.Name)
-                                    shortCircuit = true;
+                                if (candidateRoute == null || candidateRoute.AverageProfitPerTrip < (outManifest.Profit + returnManifest.Profit) / 2.0M)
+                                {
+                                    candidateRoute = new Route();
+                                    candidateRoute.Manifests.Add(outManifest);
+                                    candidateRoute.Manifests.Add(returnManifest);
+                                }
                             }
-
-                        if (shortCircuit == false)
-                        {
-                            gameData.OptimalRoutes.Add(new Route(returnRoute));
-                            routeCalculationFinished = true;
                         }
-                        else
-                            routeCalculationFinished = true;
-                    }
 
-                    if (foundReturnRoute == false && foundNewRoute == false)
-                        routeCalculationFinished = true;
+                    if (candidateRoute != null)
+                    {
+                        //Find a new out and return pair. Compare to the candidate to see if the route gets better.
+                        bool foundNewPair;
+
+                        do
+                        {
+                            foundNewPair = false;
+
+                            Route compareTo = new Route(candidateRoute);
+                            compareTo.Manifests.RemoveAt(compareTo.Manifests.Count - 1);
+                            Manifest lastCompareManifest = compareTo.Manifests[compareTo.Manifests.Count - 1];
+
+                            Manifest candidateStart = null;
+                            Manifest candidateReturn = null;
+
+                            foreach (StarSystem newSystem in gameData.StarSystems)
+                                foreach (Station newStation in newSystem.Stations)
+                                {
+                                    bool isUsed = false;
+
+                                    foreach (Manifest usedManifest in compareTo.Manifests)
+                                        if (usedManifest.StartSystemName == newSystem.Name && usedManifest.StartStationName == newStation.Name)
+                                            isUsed = true;
+
+                                    if (isUsed)
+                                        continue;
+
+                                    Manifest newStart = FindManifest(gameData, lastCompareManifest.EndSystem, lastCompareManifest.EndStation, newSystem, newStation);
+                                    Manifest newReturn = FindManifest(gameData, newSystem, newStation, compareTo.CenterSystem, compareTo.CenterStation);
+
+                                    if (newStart == null || newReturn == null)
+                                        continue;
+                                    else
+                                    {
+                                        if ((candidateStart == null && candidateReturn == null) ||
+                                            candidateStart.Profit + candidateReturn.Profit < newStart.Profit + newReturn.Profit)
+                                        {
+                                            candidateStart = newStart;
+                                            candidateReturn = newReturn;
+                                        }
+                                    }
+                                }
+
+                            if (candidateStart != null && candidateReturn != null)
+                            {
+                                compareTo.Manifests.Add(candidateStart);
+                                compareTo.Manifests.Add(candidateReturn);
+
+                                if (compareTo.AverageProfitPerTrip > candidateRoute.AverageProfitPerTrip)
+                                {
+                                    candidateRoute = compareTo;
+                                    foundNewPair = true;
+                                }
+                            }
+                        }
+                        while (foundNewPair);
+
+                        if (candidateRoute != null)
+                            gameData.OptimalRoutes.Add(candidateRoute);
+                    }
                 }
+        }
+
+        private static Manifest FindManifest(GameData gameData, StarSystem startSystem, Station startStation, StarSystem endSystem, Station endStation)
+        {
+            List<Manifest> allManifests = gameData.OptimalManifests.Concat(gameData.UserManifests).ToList();
+
+            foreach (Manifest manifest in allManifests)
+            {
+                if (manifest.StartSystemName == startSystem.Name && manifest.StartStationName == startStation.Name &&
+                    manifest.EndSystemName == endSystem.Name && manifest.EndStationName == endStation.Name)
+                    return manifest;
             }
 
-            //Find the best route for each starting system/station
-            for (int x = 0; x < gameData.OptimalRoutes.Count; x++)
-                for (int y = x + 1; y < gameData.OptimalRoutes.Count; y++)
-                {
-                    Route check1 = gameData.OptimalRoutes[x];
-                    Route check2 = gameData.OptimalRoutes[y];
-
-                    string centerSystem1 = check1.CenterSystem;
-                    string centerSystem2 = check2.CenterSystem;
-                    string centerStation1 = check1.CenterStation;
-                    string centerStation2 = check2.CenterStation;
-
-                    if (check1.CenterSystem == check2.CenterSystem && check1.CenterStation == check2.CenterStation)
-                    {
-                        if (check1.AverageProfitPerTrip >= check2.AverageProfitPerTrip)
-                        {
-                            //Remove check2
-                            gameData.OptimalRoutes.RemoveAt(y);
-                            y--;
-                        }
-                        else
-                        {
-                            //Remove check1
-                            gameData.OptimalRoutes.RemoveAt(x);
-                            x = y - 1;
-                        }
-                    }
-                }
-
-            //Check for duplicates and remove them.
-            for (int x = 0; x < gameData.OptimalRoutes.Count; x++)
-                for (int y = x + 1; y < gameData.OptimalRoutes.Count; y++)
-                    if (gameData.OptimalRoutes[x].Equals(gameData.OptimalRoutes[y]))
-                    {
-                        gameData.OptimalRoutes.RemoveAt(y);
-                        y--;
-                    }
+            return null;
         }
         private static void AddManifestToLists(Manifest candidate, List<Manifest> candidates, List<Manifest> used)
         {

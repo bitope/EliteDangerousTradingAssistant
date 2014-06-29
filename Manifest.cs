@@ -14,6 +14,38 @@ namespace EliteDangerousTradingAssistant
         {
             get { return trades; }
         }
+        public StarSystem StartSystem
+        {
+            get { return trades.Count > 0 ? trades[0].StartSystem : null; }
+        }
+        public string StartSystemName
+        {
+            get { return trades.Count > 0 ? trades[0].StartSystem.Name : string.Empty; }
+        }
+        public Station StartStation
+        {
+            get { return trades.Count > 0 ? trades[0].StartStation : null; }
+        }
+        public string StartStationName
+        {
+            get { return trades.Count > 0 ? trades[0].StartStation.Name : string.Empty; }
+        }
+        public StarSystem EndSystem
+        {
+            get { return trades.Count > 0 ? trades[0].EndSystem : null; }
+        }
+        public string EndSystemName
+        {
+            get { return trades.Count > 0 ? trades[0].EndSystem.Name : string.Empty; }
+        }
+        public Station EndStation
+        {
+            get { return trades.Count > 0 ? trades[0].EndStation : null; }
+        }
+        public string EndStationName
+        {
+            get { return trades.Count > 0 ? trades[0].EndStation.Name : string.Empty; }
+        }
         public decimal Capital
         {
             get { return capital; }

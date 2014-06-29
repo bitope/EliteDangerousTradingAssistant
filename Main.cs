@@ -300,6 +300,8 @@ namespace EliteDangerousTradingAssistant
                         SystemComboBox.Items.Add(starSystem.Name);
 
                     SystemComboBox.SelectedIndex = 0;
+
+                    fileStream.Close();
                 }
 
             }
@@ -331,6 +333,8 @@ namespace EliteDangerousTradingAssistant
                 }
 
                 SystemComboBox.SelectedIndex = 0;
+
+                fileStream.Close();
             }
             catch
             {

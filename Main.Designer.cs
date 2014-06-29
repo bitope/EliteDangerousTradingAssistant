@@ -247,7 +247,7 @@
             this.Controls.Add(this.SystemComboBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
-            this.Text = "Elite: Dangerous Trade Route Assistant V0.7 by Theo20185";
+            this.Text = "Elite: Dangerous Trade Route Assistant V0.7.1 by Theo20185";
             ((System.ComponentModel.ISupportInitialize)(this.CargoSlotsNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CapitalNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CommoditiesGrid)).EndInit();
