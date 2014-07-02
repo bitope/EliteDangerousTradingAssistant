@@ -6,6 +6,7 @@ namespace EliteDangerousTradingAssistant
     {
         private string name;
         private List<Station> stations;
+        public bool isAnarchy;
 
         public string Name
         {
@@ -15,6 +16,11 @@ namespace EliteDangerousTradingAssistant
         public List<Station> Stations
         {
             get { return stations; }
+        }
+        public bool IsAnarchy
+        {
+            get { return isAnarchy; }
+            set { isAnarchy = value; }
         }
 
         public StarSystem()

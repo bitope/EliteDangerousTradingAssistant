@@ -31,7 +31,7 @@
             this.CommodityComboBox = new System.Windows.Forms.ComboBox();
             this.CommodityLabel = new System.Windows.Forms.Label();
             this.SelectButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.UICancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CommodityComboBox
@@ -61,25 +61,24 @@
             this.SelectButton.UseVisualStyleBackColor = true;
             this.SelectButton.Click += new System.EventHandler(this.SelectButton_Click);
             // 
-            // CancelButton
+            // UICancelButton
             // 
-            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Location = new System.Drawing.Point(177, 40);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(95, 23);
-            this.CancelButton.TabIndex = 3;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.UICancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.UICancelButton.Location = new System.Drawing.Point(177, 40);
+            this.UICancelButton.Name = "UICancelButton";
+            this.UICancelButton.Size = new System.Drawing.Size(95, 23);
+            this.UICancelButton.TabIndex = 3;
+            this.UICancelButton.Text = "Cancel";
+            this.UICancelButton.UseVisualStyleBackColor = true;
+            this.UICancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // ChooseExistingCommodityDialog
             // 
             this.AcceptButton = this.SelectButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(284, 71);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.UICancelButton);
             this.Controls.Add(this.SelectButton);
             this.Controls.Add(this.CommodityLabel);
             this.Controls.Add(this.CommodityComboBox);
@@ -95,6 +94,6 @@
         private System.Windows.Forms.ComboBox CommodityComboBox;
         private System.Windows.Forms.Label CommodityLabel;
         private System.Windows.Forms.Button SelectButton;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button UICancelButton;
     }
 }
