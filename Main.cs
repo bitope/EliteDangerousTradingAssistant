@@ -249,7 +249,7 @@ namespace EliteDangerousTradingAssistant
                 MessageBox.Show("No trades found. Make sure more than one system is up to date. Check your spelling on the commodities.", "Error: No trades found.", MessageBoxButtons.OK);
         }
 
-        private void SaveButton_Click(object sender, EventArgs e)
+        private void SaveData()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.AddExtension = true;
@@ -258,7 +258,7 @@ namespace EliteDangerousTradingAssistant
             saveFileDialog.RestoreDirectory = true;
             saveFileDialog.Filter = "Elite: Dangerous Assistant (.edassistant)|*.edassistant";
             saveFileDialog.FilterIndex = 0;
-            
+
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 Stream fileStream = saveFileDialog.OpenFile();
@@ -267,7 +267,8 @@ namespace EliteDangerousTradingAssistant
                 fileStream.Close();
             }
         }
-        private void LoadButton_Click(object sender, EventArgs e)
+
+        private void LoadData()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.AddExtension = true;
@@ -411,6 +412,50 @@ namespace EliteDangerousTradingAssistant
                 default:
                     break;
             }
+
+            BindCommodities();
+        }
+
+        private void saveDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveData();
+        }
+        private void loadDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+        private void exitWithSaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveData();
+            this.Close();
+        }
+        private void saveAndExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Exit without saving?", "Exit", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.No)
+                return;
+
+            if (result == DialogResult.Yes)
+                this.Close();
+        }
+
+        private void TimestampAllButton_Click(object sender, EventArgs e)
+        {
+            if (SystemComboBox.SelectedIndex < 0)
+                return;
+
+            StarSystem selectedSystem = gameData.StarSystems[SystemComboBox.SelectedIndex];
+
+            if (StationComboBox.SelectedIndex < 0)
+                return;
+
+            Station selectedStation = selectedSystem.Stations[StationComboBox.SelectedIndex];
+
+            DateTime timeStamp = DateTime.Now;
+
+            foreach (Commodity commodity in selectedStation.Commodities)
+                commodity.LastUpdated = timeStamp;
 
             BindCommodities();
         }

@@ -180,6 +180,12 @@
     <None Include="SaveData\SaveData_07012014.edassistant">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="SaveData\SaveData_07032014.edassistant">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SaveData\SaveData_07042014.edassistant">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
