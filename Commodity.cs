@@ -40,6 +40,7 @@ namespace EliteDangerousTradingAssistant
         public Commodity()
         {
         }
+
         public Commodity(Commodity copy)
         {
             name = copy.Name;

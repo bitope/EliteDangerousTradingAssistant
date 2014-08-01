@@ -25,6 +25,12 @@ namespace EliteDangerousTradingAssistant
             StationTextBox.Text = station;
             result = null;
             this.systems = systems;
+
+            
+            var uniqueCommodities = new AutoCompleteStringCollection();
+            uniqueCommodities.AddRange(ExistingCommodities().ToArray());
+
+            CommodityTextBox.AutoCompleteCustomSource = uniqueCommodities;
         }
 
         public AddEditCommodityDialog(string system, string station, List<StarSystem> systems, Commodity commodity)
@@ -87,17 +93,23 @@ namespace EliteDangerousTradingAssistant
             this.Close();
         }
 
-        private void ChooseExistingButton_Click(object sender, EventArgs e)
+        private List<string> ExistingCommodities()
         {
-            ChooseExistingCommodityDialog dialog = new ChooseExistingCommodityDialog(systems);
-            
-            if (dialog.IsDisposed == false)
-            {
-                dialog.ShowDialog();
+            var uniqueCommodityNames = new List<string>();
 
-                if (string.IsNullOrEmpty(dialog.Result) == false)
-                    CommodityTextBox.Text = dialog.Result;
-            }
+            foreach (StarSystem system in systems)
+                foreach (Station station in system.Stations)
+                    foreach (Commodity commodity in station.Commodities)
+                        if (uniqueCommodityNames.Contains(commodity.Name) == false)
+                            uniqueCommodityNames.Add(commodity.Name);
+
+            uniqueCommodityNames.Sort();
+            return uniqueCommodityNames;
+        }
+
+        private void BuyTextBox_TextChanged(object sender, EventArgs e)
+        {
+            SupplyTextBox.Text = 10000.ToString();
         }
     }
 }

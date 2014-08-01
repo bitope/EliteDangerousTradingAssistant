@@ -14,6 +14,8 @@ namespace EliteDangerousTradingAssistant
 
         private DataTable bindingTable;
 
+        private string currentFilename = "";
+
         public Main()
         {
             InitializeComponent();
@@ -121,6 +123,8 @@ namespace EliteDangerousTradingAssistant
 
         private void BindCommodities()
         {
+            CommoditiesGrid.SuspendLayout();
+
             bindingTable = new DataTable();
 
             bindingTable.Columns.Add("Index");
@@ -191,6 +195,7 @@ namespace EliteDangerousTradingAssistant
             downColumn.Text = "▼";
             downColumn.UseColumnTextForButtonValue = true;
             CommoditiesGrid.Columns.Insert(8, downColumn);
+            CommoditiesGrid.ResumeLayout(true);
         }
 
         private void AddCommodityButton_Click(object sender, EventArgs e)
@@ -213,7 +218,11 @@ namespace EliteDangerousTradingAssistant
 
             selectedStation.Commodities.Add(newCommodity);
             BindCommodities();
+            
+            // Lägg till flera om man accepterar...
+            AddCommodityButton_Click(this, e);
         }
+
         private void CommoditiesGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             switch(CommoditiesGrid.Columns[e.ColumnIndex].Name)
@@ -251,7 +260,12 @@ namespace EliteDangerousTradingAssistant
 
         private void SaveData()
         {
+            gameData.ClearCalculatedData();
+
             SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.FileName = currentFilename;
+            saveFileDialog.OverwritePrompt = false;
             saveFileDialog.AddExtension = true;
             saveFileDialog.DefaultExt = ".edassistant";
             saveFileDialog.InitialDirectory = string.Concat(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), @"\SaveData");
@@ -287,6 +301,8 @@ namespace EliteDangerousTradingAssistant
             {
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
+                    currentFilename = openFileDialog.FileName;
+
                     Stream fileStream = openFileDialog.OpenFile();
                     XmlSerializer serializer = new XmlSerializer(typeof(GameData));
                     gameData = serializer.Deserialize(fileStream) as GameData;

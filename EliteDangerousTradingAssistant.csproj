@@ -63,12 +63,6 @@
       <DependentUpon>AddSystemDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Adviser.cs" />
-    <Compile Include="ChooseExistingCommodityDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ChooseExistingCommodityDialog.Designer.cs">
-      <DependentUpon>ChooseExistingCommodityDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Commodity.cs" />
     <Compile Include="GameData.cs" />
     <Compile Include="Main.cs">
@@ -110,9 +104,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddSystemDialog.resx">
       <DependentUpon>AddSystemDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ChooseExistingCommodityDialog.resx">
-      <DependentUpon>ChooseExistingCommodityDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

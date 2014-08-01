@@ -39,41 +39,46 @@
             // SystemLabel
             // 
             this.SystemLabel.AutoSize = true;
-            this.SystemLabel.Location = new System.Drawing.Point(13, 13);
+            this.SystemLabel.Location = new System.Drawing.Point(17, 16);
+            this.SystemLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.SystemLabel.Name = "SystemLabel";
-            this.SystemLabel.Size = new System.Drawing.Size(41, 13);
+            this.SystemLabel.Size = new System.Drawing.Size(54, 17);
             this.SystemLabel.TabIndex = 0;
             this.SystemLabel.Text = "System";
             // 
             // SystemTextBox
             // 
             this.SystemTextBox.Enabled = false;
-            this.SystemTextBox.Location = new System.Drawing.Point(60, 10);
+            this.SystemTextBox.Location = new System.Drawing.Point(80, 12);
+            this.SystemTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.SystemTextBox.Name = "SystemTextBox";
-            this.SystemTextBox.Size = new System.Drawing.Size(250, 20);
+            this.SystemTextBox.Size = new System.Drawing.Size(332, 22);
             this.SystemTextBox.TabIndex = 1;
             // 
             // StationLabel
             // 
             this.StationLabel.AutoSize = true;
-            this.StationLabel.Location = new System.Drawing.Point(13, 40);
+            this.StationLabel.Location = new System.Drawing.Point(17, 49);
+            this.StationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StationLabel.Name = "StationLabel";
-            this.StationLabel.Size = new System.Drawing.Size(40, 13);
+            this.StationLabel.Size = new System.Drawing.Size(52, 17);
             this.StationLabel.TabIndex = 2;
             this.StationLabel.Text = "Station";
             // 
             // StationTextBox
             // 
-            this.StationTextBox.Location = new System.Drawing.Point(60, 37);
+            this.StationTextBox.Location = new System.Drawing.Point(80, 46);
+            this.StationTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.StationTextBox.Name = "StationTextBox";
-            this.StationTextBox.Size = new System.Drawing.Size(250, 20);
+            this.StationTextBox.Size = new System.Drawing.Size(332, 22);
             this.StationTextBox.TabIndex = 3;
             // 
             // AddStationButton
             // 
-            this.AddStationButton.Location = new System.Drawing.Point(60, 63);
+            this.AddStationButton.Location = new System.Drawing.Point(80, 78);
+            this.AddStationButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.AddStationButton.Name = "AddStationButton";
-            this.AddStationButton.Size = new System.Drawing.Size(250, 23);
+            this.AddStationButton.Size = new System.Drawing.Size(333, 28);
             this.AddStationButton.TabIndex = 4;
             this.AddStationButton.Text = "Add Station";
             this.AddStationButton.UseVisualStyleBackColor = true;
@@ -82,17 +87,20 @@
             // AddStationDialog
             // 
             this.AcceptButton = this.AddStationButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 91);
+            this.ClientSize = new System.Drawing.Size(429, 112);
             this.Controls.Add(this.AddStationButton);
             this.Controls.Add(this.StationTextBox);
             this.Controls.Add(this.StationLabel);
             this.Controls.Add(this.SystemTextBox);
             this.Controls.Add(this.SystemLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "AddStationDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add a Station";
+            this.Load += new System.EventHandler(this.AddStationDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

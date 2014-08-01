@@ -39,6 +39,7 @@ namespace EliteDangerousTradingAssistant
         {
             get { return optimalRoutes; }
         }
+
         public List<Route> UserRoutes
         {
             get { return userRoutes; }
@@ -58,6 +59,15 @@ namespace EliteDangerousTradingAssistant
         public GameData()
         {
             starSystems = new List<StarSystem>();
+            trades = new List<Trade>();
+            optimalManifests = new List<Manifest>();
+            userManifests = new List<Manifest>();
+            optimalRoutes = new List<Route>();
+            userRoutes = new List<Route>();
+        }
+
+        internal void ClearCalculatedData()
+        {
             trades = new List<Trade>();
             optimalManifests = new List<Manifest>();
             userManifests = new List<Manifest>();

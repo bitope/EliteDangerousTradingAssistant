@@ -33,5 +33,10 @@ namespace EliteDangerousTradingAssistant
             result.Name = StationTextBox.Text;
             this.Close();
         }
+
+        private void AddStationDialog_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

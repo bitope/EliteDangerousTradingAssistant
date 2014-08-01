@@ -121,8 +121,12 @@ namespace EliteDangerousTradingAssistant
 
         private void SetView()
         {
+            SuspendLayout();
+
             SetTradesView();
             SetManifestsView();
+
+            ResumeLayout();
         }
 
         private void BindTradesData()
@@ -473,6 +477,18 @@ namespace EliteDangerousTradingAssistant
 
             RouteEditorDialog dialog = new RouteEditorDialog(selectedRoute);
             dialog.ShowDialog();
+        }
+
+        private void SwapStartEndSystem_Click(object sender, EventArgs e)
+        {
+            SuspendLayout();
+
+            var temp = StartSystemFilterComboBox.SelectedIndex;
+            StartSystemFilterComboBox.SelectedIndex = EndSystemFilterComboBox.SelectedIndex;
+            EndSystemFilterComboBox.SelectedIndex = temp;
+
+            ResumeLayout();
+            SetView();
         }
     }
 }
