@@ -5,6 +5,8 @@ Elite Dangerous Trading Assistant
 
 This tool assists Commanders with plotting out profitable trade routes in the PC game Elite: Dangerous, currently in Beta.
 
+If you downloaded the entire Git, or are unsure where to go in this Git for the latest release, see the Releases folder. Download the .zip for the latest release. It is pre-compiled. The source code is for those that wish to set up their own project within Visual Studio and modify the application and/or compile their own copy.
+
 Features:
 
 *Collect data about commodities available in different star systems and stations.
