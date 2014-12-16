@@ -475,5 +475,14 @@ namespace EliteDangerousTradingAssistant
 
             BindCommodities();
         }
+
+        private void importCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var file = new OpenFileDialog();
+            
+            if (file.ShowDialog()==DialogResult.OK)
+                DataImport.ImportCSV(gameData, file.FileName);
+
+        }
     }
 }

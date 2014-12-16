@@ -4,7 +4,8 @@ namespace EliteDangerousTradingAssistant
 {
     public enum EditorMode
     {
-        View, Edit
+        View,
+        Edit
     }
 
     public class GameData
@@ -23,18 +24,22 @@ namespace EliteDangerousTradingAssistant
         {
             get { return starSystems; }
         }
+
         public List<Trade> Trades
         {
             get { return trades; }
         }
+
         public List<Manifest> OptimalManifests
         {
             get { return optimalManifests; }
         }
+
         public List<Manifest> UserManifests
         {
             get { return userManifests; }
         }
+
         public List<Route> OptimalRoutes
         {
             get { return optimalRoutes; }
@@ -50,6 +55,7 @@ namespace EliteDangerousTradingAssistant
             get { return capital; }
             set { capital = value; }
         }
+
         public decimal CargoSlots
         {
             get { return cargoSlots; }

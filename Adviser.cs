@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EliteDangerousTradingAssistant
@@ -20,17 +21,21 @@ namespace EliteDangerousTradingAssistant
         {
             gameData.Trades.Clear();
 
-            for (int x = 0; x < gameData.StarSystems.Count - 1; x++)
-                for (int y = x + 1; y < gameData.StarSystems.Count; y++)
+            for (int x = 0; x < gameData.StarSystems.Count; x++)
+                for (int y = 0; y < gameData.StarSystems.Count; y++)
                 {
                     StarSystem system1 = gameData.StarSystems[x];
                     StarSystem system2 = gameData.StarSystems[y];
 
                     foreach (Station station1 in system1.Stations)
                         foreach (Station station2 in system2.Stations)
+                        {
+                            if (station1.Equals(station2))
+                                continue;
+
                             foreach (Commodity commodity1 in station1.Commodities)
                                 foreach (Commodity commodity2 in station2.Commodities)
-                                    if (commodity1.Name == commodity2.Name)
+                                    if (String.Equals(commodity1.Name, commodity2.Name, StringComparison.CurrentCultureIgnoreCase))
                                     {
                                         if (commodity1.BuyPrice > 0 && commodity1.Supply > 0 && commodity1.BuyPrice < commodity2.SellPrice)
                                         {
@@ -47,21 +52,22 @@ namespace EliteDangerousTradingAssistant
                                             gameData.Trades.Add(newTrade);
                                         }
 
-                                        if (commodity2.BuyPrice > 0 && commodity2.Supply > 0 && commodity2.BuyPrice < commodity1.SellPrice)
-                                        {
-                                            Trade newTrade = new Trade();
-                                            newTrade.Commodity.Name = commodity1.Name;
-                                            newTrade.Commodity.BuyPrice = commodity2.BuyPrice;
-                                            newTrade.Commodity.Supply = commodity2.Supply;
-                                            newTrade.Commodity.SellPrice = commodity1.SellPrice;
-                                            newTrade.Commodity.LastUpdated = commodity1.LastUpdated <= commodity2.LastUpdated ? commodity1.LastUpdated : commodity2.LastUpdated;
-                                            newTrade.StartSystem = system2;
-                                            newTrade.EndSystem = system1;
-                                            newTrade.StartStation = station2;
-                                            newTrade.EndStation = station1;
-                                            gameData.Trades.Add(newTrade);
-                                        }
+                                        //if (commodity2.BuyPrice > 0 && commodity2.Supply > 0 && commodity2.BuyPrice < commodity1.SellPrice)
+                                        //{
+                                        //    Trade newTrade = new Trade();
+                                        //    newTrade.Commodity.Name = commodity1.Name;
+                                        //    newTrade.Commodity.BuyPrice = commodity2.BuyPrice;
+                                        //    newTrade.Commodity.Supply = commodity2.Supply;
+                                        //    newTrade.Commodity.SellPrice = commodity1.SellPrice;
+                                        //    newTrade.Commodity.LastUpdated = commodity1.LastUpdated <= commodity2.LastUpdated ? commodity1.LastUpdated : commodity2.LastUpdated;
+                                        //    newTrade.StartSystem = system2;
+                                        //    newTrade.EndSystem = system1;
+                                        //    newTrade.StartStation = station2;
+                                        //    newTrade.EndStation = station1;
+                                        //    gameData.Trades.Add(newTrade);
+                                        //}
                                     }
+                        }
                 }
         }
 
@@ -216,6 +222,7 @@ namespace EliteDangerousTradingAssistant
 
             return null;
         }
+
         private static void AddManifestToLists(Manifest candidate, List<Manifest> candidates, List<Manifest> used)
         {
             bool isUsed = false;

@@ -52,6 +52,8 @@
             this.exitWithSaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAndExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.CargoSlotsNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CapitalNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CommoditiesGrid)).BeginInit();
@@ -62,49 +64,44 @@
             // SystemComboBox
             // 
             this.SystemComboBox.FormattingEnabled = true;
-            this.SystemComboBox.Location = new System.Drawing.Point(101, 6);
-            this.SystemComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SystemComboBox.Location = new System.Drawing.Point(76, 5);
             this.SystemComboBox.Name = "SystemComboBox";
-            this.SystemComboBox.Size = new System.Drawing.Size(275, 24);
+            this.SystemComboBox.Size = new System.Drawing.Size(207, 21);
             this.SystemComboBox.TabIndex = 0;
             this.SystemComboBox.SelectedIndexChanged += new System.EventHandler(this.SystemComboBox_SelectedIndexChanged);
             // 
             // SystemLabel
             // 
             this.SystemLabel.AutoSize = true;
-            this.SystemLabel.Location = new System.Drawing.Point(9, 10);
-            this.SystemLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.SystemLabel.Location = new System.Drawing.Point(7, 8);
             this.SystemLabel.Name = "SystemLabel";
-            this.SystemLabel.Size = new System.Drawing.Size(84, 17);
+            this.SystemLabel.Size = new System.Drawing.Size(63, 13);
             this.SystemLabel.TabIndex = 1;
             this.SystemLabel.Text = "Star System";
             // 
             // StationLabel
             // 
             this.StationLabel.AutoSize = true;
-            this.StationLabel.Location = new System.Drawing.Point(413, 10);
-            this.StationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.StationLabel.Location = new System.Drawing.Point(310, 8);
             this.StationLabel.Name = "StationLabel";
-            this.StationLabel.Size = new System.Drawing.Size(52, 17);
+            this.StationLabel.Size = new System.Drawing.Size(40, 13);
             this.StationLabel.TabIndex = 2;
             this.StationLabel.Text = "Station";
             // 
             // StationComboBox
             // 
             this.StationComboBox.FormattingEnabled = true;
-            this.StationComboBox.Location = new System.Drawing.Point(474, 6);
-            this.StationComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.StationComboBox.Location = new System.Drawing.Point(356, 5);
             this.StationComboBox.Name = "StationComboBox";
-            this.StationComboBox.Size = new System.Drawing.Size(275, 24);
+            this.StationComboBox.Size = new System.Drawing.Size(207, 21);
             this.StationComboBox.TabIndex = 3;
             this.StationComboBox.SelectedIndexChanged += new System.EventHandler(this.StationComboBox_SelectedIndexChanged);
             // 
             // AddCommodityButton
             // 
-            this.AddCommodityButton.Location = new System.Drawing.Point(13, 107);
-            this.AddCommodityButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AddCommodityButton.Location = new System.Drawing.Point(10, 87);
             this.AddCommodityButton.Name = "AddCommodityButton";
-            this.AddCommodityButton.Size = new System.Drawing.Size(240, 28);
+            this.AddCommodityButton.Size = new System.Drawing.Size(180, 23);
             this.AddCommodityButton.TabIndex = 8;
             this.AddCommodityButton.Text = "Add New Commodity";
             this.AddCommodityButton.UseVisualStyleBackColor = true;
@@ -112,10 +109,9 @@
             // 
             // AddSystemButton
             // 
-            this.AddSystemButton.Location = new System.Drawing.Point(101, 39);
-            this.AddSystemButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AddSystemButton.Location = new System.Drawing.Point(76, 32);
             this.AddSystemButton.Name = "AddSystemButton";
-            this.AddSystemButton.Size = new System.Drawing.Size(133, 28);
+            this.AddSystemButton.Size = new System.Drawing.Size(100, 23);
             this.AddSystemButton.TabIndex = 1;
             this.AddSystemButton.Text = "Add System";
             this.AddSystemButton.UseVisualStyleBackColor = true;
@@ -123,10 +119,9 @@
             // 
             // AddStationButton
             // 
-            this.AddStationButton.Location = new System.Drawing.Point(474, 39);
-            this.AddStationButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AddStationButton.Location = new System.Drawing.Point(356, 32);
             this.AddStationButton.Name = "AddStationButton";
-            this.AddStationButton.Size = new System.Drawing.Size(133, 28);
+            this.AddStationButton.Size = new System.Drawing.Size(100, 23);
             this.AddStationButton.TabIndex = 4;
             this.AddStationButton.Text = "Add Station";
             this.AddStationButton.UseVisualStyleBackColor = true;
@@ -134,10 +129,9 @@
             // 
             // RemoveSystemButton
             // 
-            this.RemoveSystemButton.Location = new System.Drawing.Point(242, 39);
-            this.RemoveSystemButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RemoveSystemButton.Location = new System.Drawing.Point(182, 32);
             this.RemoveSystemButton.Name = "RemoveSystemButton";
-            this.RemoveSystemButton.Size = new System.Drawing.Size(135, 28);
+            this.RemoveSystemButton.Size = new System.Drawing.Size(101, 23);
             this.RemoveSystemButton.TabIndex = 2;
             this.RemoveSystemButton.Text = "Remove System";
             this.RemoveSystemButton.UseVisualStyleBackColor = true;
@@ -145,10 +139,9 @@
             // 
             // RemoveStationButton
             // 
-            this.RemoveStationButton.Location = new System.Drawing.Point(616, 39);
-            this.RemoveStationButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RemoveStationButton.Location = new System.Drawing.Point(462, 32);
             this.RemoveStationButton.Name = "RemoveStationButton";
-            this.RemoveStationButton.Size = new System.Drawing.Size(135, 28);
+            this.RemoveStationButton.Size = new System.Drawing.Size(101, 23);
             this.RemoveStationButton.TabIndex = 5;
             this.RemoveStationButton.Text = "Remove Station";
             this.RemoveStationButton.UseVisualStyleBackColor = true;
@@ -156,10 +149,9 @@
             // 
             // CalculateAllTradesButton
             // 
-            this.CalculateAllTradesButton.Location = new System.Drawing.Point(261, 107);
-            this.CalculateAllTradesButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CalculateAllTradesButton.Location = new System.Drawing.Point(196, 87);
             this.CalculateAllTradesButton.Name = "CalculateAllTradesButton";
-            this.CalculateAllTradesButton.Size = new System.Drawing.Size(240, 28);
+            this.CalculateAllTradesButton.Size = new System.Drawing.Size(180, 23);
             this.CalculateAllTradesButton.TabIndex = 9;
             this.CalculateAllTradesButton.Text = "Calculate Trades";
             this.CalculateAllTradesButton.UseVisualStyleBackColor = true;
@@ -167,15 +159,14 @@
             // 
             // CargoSlotsNumericUpDown
             // 
-            this.CargoSlotsNumericUpDown.Location = new System.Drawing.Point(474, 75);
-            this.CargoSlotsNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CargoSlotsNumericUpDown.Location = new System.Drawing.Point(356, 61);
             this.CargoSlotsNumericUpDown.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
             this.CargoSlotsNumericUpDown.Name = "CargoSlotsNumericUpDown";
-            this.CargoSlotsNumericUpDown.Size = new System.Drawing.Size(276, 22);
+            this.CargoSlotsNumericUpDown.Size = new System.Drawing.Size(207, 20);
             this.CargoSlotsNumericUpDown.TabIndex = 7;
             this.CargoSlotsNumericUpDown.Value = new decimal(new int[] {
             100,
@@ -185,15 +176,14 @@
             // 
             // CapitalNumericUpDown
             // 
-            this.CapitalNumericUpDown.Location = new System.Drawing.Point(101, 75);
-            this.CapitalNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CapitalNumericUpDown.Location = new System.Drawing.Point(76, 61);
             this.CapitalNumericUpDown.Maximum = new decimal(new int[] {
             1000000000,
             0,
             0,
             0});
             this.CapitalNumericUpDown.Name = "CapitalNumericUpDown";
-            this.CapitalNumericUpDown.Size = new System.Drawing.Size(276, 22);
+            this.CapitalNumericUpDown.Size = new System.Drawing.Size(207, 20);
             this.CapitalNumericUpDown.TabIndex = 6;
             this.CapitalNumericUpDown.Value = new decimal(new int[] {
             100000,
@@ -204,20 +194,18 @@
             // CapitalLabel
             // 
             this.CapitalLabel.AutoSize = true;
-            this.CapitalLabel.Location = new System.Drawing.Point(41, 78);
-            this.CapitalLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CapitalLabel.Location = new System.Drawing.Point(31, 63);
             this.CapitalLabel.Name = "CapitalLabel";
-            this.CapitalLabel.Size = new System.Drawing.Size(51, 17);
+            this.CapitalLabel.Size = new System.Drawing.Size(39, 13);
             this.CapitalLabel.TabIndex = 26;
             this.CapitalLabel.Text = "Capital";
             // 
             // CargoSlotsLabel
             // 
             this.CargoSlotsLabel.AutoSize = true;
-            this.CargoSlotsLabel.Location = new System.Drawing.Point(385, 78);
-            this.CargoSlotsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CargoSlotsLabel.Location = new System.Drawing.Point(289, 63);
             this.CargoSlotsLabel.Name = "CargoSlotsLabel";
-            this.CargoSlotsLabel.Size = new System.Drawing.Size(81, 17);
+            this.CargoSlotsLabel.Size = new System.Drawing.Size(61, 13);
             this.CargoSlotsLabel.TabIndex = 27;
             this.CargoSlotsLabel.Text = "Cargo Slots";
             // 
@@ -227,10 +215,10 @@
             this.CommoditiesGrid.AllowUserToDeleteRows = false;
             this.CommoditiesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CommoditiesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CommoditiesGrid.Location = new System.Drawing.Point(0, 185);
-            this.CommoditiesGrid.Margin = new System.Windows.Forms.Padding(4, 500, 4, 4);
+            this.CommoditiesGrid.Location = new System.Drawing.Point(0, 145);
+            this.CommoditiesGrid.Margin = new System.Windows.Forms.Padding(3, 406, 3, 3);
             this.CommoditiesGrid.Name = "CommoditiesGrid";
-            this.CommoditiesGrid.Size = new System.Drawing.Size(866, 1083);
+            this.CommoditiesGrid.Size = new System.Drawing.Size(650, 885);
             this.CommoditiesGrid.TabIndex = 0;
             this.CommoditiesGrid.TabStop = false;
             this.CommoditiesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CommoditiesGrid_CellContentClick);
@@ -238,10 +226,9 @@
             // 
             // TimestampAllButton
             // 
-            this.TimestampAllButton.Location = new System.Drawing.Point(509, 107);
-            this.TimestampAllButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TimestampAllButton.Location = new System.Drawing.Point(382, 87);
             this.TimestampAllButton.Name = "TimestampAllButton";
-            this.TimestampAllButton.Size = new System.Drawing.Size(241, 28);
+            this.TimestampAllButton.Size = new System.Drawing.Size(181, 23);
             this.TimestampAllButton.TabIndex = 28;
             this.TimestampAllButton.Text = "Timestamp All Commodities";
             this.TimestampAllButton.UseVisualStyleBackColor = true;
@@ -250,11 +237,11 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.importToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(866, 36);
+            this.menuStrip1.Size = new System.Drawing.Size(650, 24);
             this.menuStrip1.TabIndex = 29;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -266,34 +253,34 @@
             this.exitWithSaveToolStripMenuItem,
             this.saveAndExitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 32);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // saveDataToolStripMenuItem
             // 
             this.saveDataToolStripMenuItem.Name = "saveDataToolStripMenuItem";
-            this.saveDataToolStripMenuItem.Size = new System.Drawing.Size(213, 32);
+            this.saveDataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveDataToolStripMenuItem.Text = "&Save Data File";
             this.saveDataToolStripMenuItem.Click += new System.EventHandler(this.saveDataToolStripMenuItem_Click);
             // 
             // loadDataToolStripMenuItem
             // 
             this.loadDataToolStripMenuItem.Name = "loadDataToolStripMenuItem";
-            this.loadDataToolStripMenuItem.Size = new System.Drawing.Size(213, 32);
+            this.loadDataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.loadDataToolStripMenuItem.Text = "&Open Data File";
             this.loadDataToolStripMenuItem.Click += new System.EventHandler(this.loadDataToolStripMenuItem_Click);
             // 
             // exitWithSaveToolStripMenuItem
             // 
             this.exitWithSaveToolStripMenuItem.Name = "exitWithSaveToolStripMenuItem";
-            this.exitWithSaveToolStripMenuItem.Size = new System.Drawing.Size(213, 32);
+            this.exitWithSaveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitWithSaveToolStripMenuItem.Text = "S&ave and Exit";
             this.exitWithSaveToolStripMenuItem.Click += new System.EventHandler(this.exitWithSaveToolStripMenuItem_Click);
             // 
             // saveAndExitToolStripMenuItem
             // 
             this.saveAndExitToolStripMenuItem.Name = "saveAndExitToolStripMenuItem";
-            this.saveAndExitToolStripMenuItem.Size = new System.Drawing.Size(213, 32);
+            this.saveAndExitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveAndExitToolStripMenuItem.Text = "E&xit";
             this.saveAndExitToolStripMenuItem.Click += new System.EventHandler(this.saveAndExitToolStripMenuItem_Click);
             // 
@@ -316,24 +303,39 @@
             this.panel1.Controls.Add(this.RemoveSystemButton);
             this.panel1.Controls.Add(this.RemoveStationButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 36);
+            this.panel1.Location = new System.Drawing.Point(0, 24);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.panel1.Size = new System.Drawing.Size(866, 149);
+            this.panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 8);
+            this.panel1.Size = new System.Drawing.Size(650, 121);
             this.panel1.TabIndex = 30;
+            // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importCSVToolStripMenuItem});
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.importToolStripMenuItem.Text = "Import";
+            // 
+            // importCSVToolStripMenuItem
+            // 
+            this.importCSVToolStripMenuItem.Name = "importCSVToolStripMenuItem";
+            this.importCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.importCSVToolStripMenuItem.Text = "Import CSV";
+            this.importCSVToolStripMenuItem.Click += new System.EventHandler(this.importCSVToolStripMenuItem_Click);
             // 
             // Main
             // 
             this.AcceptButton = this.CalculateAllTradesButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(866, 1268);
+            this.ClientSize = new System.Drawing.Size(650, 1030);
             this.Controls.Add(this.CommoditiesGrid);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Main";
             this.Text = "Elite: Dangerous Trade Route Assistant";
             ((System.ComponentModel.ISupportInitialize)(this.CargoSlotsNumericUpDown)).EndInit();
@@ -373,6 +375,8 @@
         private System.Windows.Forms.ToolStripMenuItem exitWithSaveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAndExitToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importCSVToolStripMenuItem;
     }
 }
 
