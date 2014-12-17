@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -11,10 +12,10 @@ namespace EliteDangerousTradingAssistant
     public partial class Main : Form
     {
         private GameData gameData;
-
         private DataTable bindingTable;
-
         private string currentFilename = "";
+
+        private Timer ocrTimer;
 
         public Main()
         {
@@ -25,6 +26,7 @@ namespace EliteDangerousTradingAssistant
 
             SystemComboBox.Items.Clear();
             StationComboBox.Items.Clear();
+            ocrTimer=new Timer();
         }
 
         private void AddSystemButton_Click(object sender, System.EventArgs e)
@@ -483,6 +485,83 @@ namespace EliteDangerousTradingAssistant
             if (file.ShowDialog()==DialogResult.OK)
                 DataImport.ImportCSV(gameData, file.FileName);
 
+        }
+
+        private void enableOCRToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            if (enableOCRToolStripMenuItem.Checked)
+            {
+                ocrTimer.Interval = 5000;
+                ocrTimer.Tick += ocrTimer_Tick;
+                ocrTimer.Enabled = true;
+            }
+            else
+            {
+                ocrTimer.Enabled = false;
+                ocrTimer.Tick -= ocrTimer_Tick;
+                OcrEngine.Processed.Clear();
+            }
+        }
+
+        void ocrTimer_Tick(object sender, EventArgs e)
+        {
+            string picsBase = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            string frontierBase = "\\Frontier Developments\\Elite Dangerous";
+            foreach (var picture in Directory.EnumerateFiles(picsBase+frontierBase,"*.bmp"))
+            {
+                Task.Run(() =>
+                {
+
+                    if (!OcrEngine.IsProcessed(picture))
+                    {
+                        OcrEngine.ProcessImage2(picture);
+                        
+                    }
+
+                });
+            }
+
+            if (DataImport.ImportOcrData(gameData))
+            {
+                SystemComboBox.Items.Clear();
+                StationComboBox.Items.Clear();
+
+                foreach (StarSystem starSystem in gameData.StarSystems)
+                    SystemComboBox.Items.Add(starSystem.Name);
+
+                SystemComboBox.SelectedIndex = 0;
+            }
+        }
+
+        private void btnMoveStation_Click(object sender, EventArgs e)
+        {
+            if (SystemComboBox.Items.Count == 0)
+                return;
+            if (gameData.StarSystems.Count == 0 || gameData.StarSystems[SystemComboBox.SelectedIndex].Stations.Count == 0)
+                return;
+
+            MoveStationDialog dialog = new MoveStationDialog(gameData);
+            dialog.ShowDialog();
+
+            if (dialog.Result == null)
+                return;
+
+            int selectedStationIndex = StationComboBox.SelectedIndex;
+            StarSystem selectedSystem = gameData.StarSystems[SystemComboBox.SelectedIndex];
+
+            StationComboBox.Items.RemoveAt(selectedStationIndex);
+            Station selectedStation = selectedSystem.Stations[selectedStationIndex];
+
+            selectedSystem.Stations.RemoveAt(selectedStationIndex);
+            dialog.Result.Stations.Add(selectedStation);
+
+            SystemComboBox.Items.Clear();
+            StationComboBox.Items.Clear();
+
+            foreach (StarSystem starSystem in gameData.StarSystems)
+                SystemComboBox.Items.Add(starSystem.Name);
+
+            SystemComboBox.SelectedIndex = 0;
         }
     }
 }

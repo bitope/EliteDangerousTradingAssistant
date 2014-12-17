@@ -51,9 +51,11 @@
             this.loadDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitWithSaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAndExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.enableOCRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMoveStation = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CargoSlotsNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CapitalNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CommoditiesGrid)).BeginInit();
@@ -121,7 +123,7 @@
             // 
             this.AddStationButton.Location = new System.Drawing.Point(356, 32);
             this.AddStationButton.Name = "AddStationButton";
-            this.AddStationButton.Size = new System.Drawing.Size(100, 23);
+            this.AddStationButton.Size = new System.Drawing.Size(70, 23);
             this.AddStationButton.TabIndex = 4;
             this.AddStationButton.Text = "Add Station";
             this.AddStationButton.UseVisualStyleBackColor = true;
@@ -139,9 +141,9 @@
             // 
             // RemoveStationButton
             // 
-            this.RemoveStationButton.Location = new System.Drawing.Point(462, 32);
+            this.RemoveStationButton.Location = new System.Drawing.Point(432, 32);
             this.RemoveStationButton.Name = "RemoveStationButton";
-            this.RemoveStationButton.Size = new System.Drawing.Size(101, 23);
+            this.RemoveStationButton.Size = new System.Drawing.Size(91, 23);
             this.RemoveStationButton.TabIndex = 5;
             this.RemoveStationButton.Text = "Remove Station";
             this.RemoveStationButton.UseVisualStyleBackColor = true;
@@ -259,34 +261,51 @@
             // saveDataToolStripMenuItem
             // 
             this.saveDataToolStripMenuItem.Name = "saveDataToolStripMenuItem";
-            this.saveDataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveDataToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.saveDataToolStripMenuItem.Text = "&Save Data File";
             this.saveDataToolStripMenuItem.Click += new System.EventHandler(this.saveDataToolStripMenuItem_Click);
             // 
             // loadDataToolStripMenuItem
             // 
             this.loadDataToolStripMenuItem.Name = "loadDataToolStripMenuItem";
-            this.loadDataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadDataToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.loadDataToolStripMenuItem.Text = "&Open Data File";
             this.loadDataToolStripMenuItem.Click += new System.EventHandler(this.loadDataToolStripMenuItem_Click);
             // 
             // exitWithSaveToolStripMenuItem
             // 
             this.exitWithSaveToolStripMenuItem.Name = "exitWithSaveToolStripMenuItem";
-            this.exitWithSaveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitWithSaveToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.exitWithSaveToolStripMenuItem.Text = "S&ave and Exit";
             this.exitWithSaveToolStripMenuItem.Click += new System.EventHandler(this.exitWithSaveToolStripMenuItem_Click);
             // 
             // saveAndExitToolStripMenuItem
             // 
             this.saveAndExitToolStripMenuItem.Name = "saveAndExitToolStripMenuItem";
-            this.saveAndExitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAndExitToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.saveAndExitToolStripMenuItem.Text = "E&xit";
             this.saveAndExitToolStripMenuItem.Click += new System.EventHandler(this.saveAndExitToolStripMenuItem_Click);
+            // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importCSVToolStripMenuItem,
+            this.enableOCRToolStripMenuItem});
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.importToolStripMenuItem.Text = "Import";
+            // 
+            // importCSVToolStripMenuItem
+            // 
+            this.importCSVToolStripMenuItem.Name = "importCSVToolStripMenuItem";
+            this.importCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.importCSVToolStripMenuItem.Text = "Import CSV";
+            this.importCSVToolStripMenuItem.Click += new System.EventHandler(this.importCSVToolStripMenuItem_Click);
             // 
             // panel1
             // 
             this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.btnMoveStation);
             this.panel1.Controls.Add(this.SystemLabel);
             this.panel1.Controls.Add(this.TimestampAllButton);
             this.panel1.Controls.Add(this.SystemComboBox);
@@ -304,26 +323,29 @@
             this.panel1.Controls.Add(this.RemoveStationButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 24);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 8);
             this.panel1.Size = new System.Drawing.Size(650, 121);
             this.panel1.TabIndex = 30;
             // 
-            // importToolStripMenuItem
+            // enableOCRToolStripMenuItem
             // 
-            this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importCSVToolStripMenuItem});
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
-            this.importToolStripMenuItem.Text = "Import";
+            this.enableOCRToolStripMenuItem.CheckOnClick = true;
+            this.enableOCRToolStripMenuItem.Name = "enableOCRToolStripMenuItem";
+            this.enableOCRToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.enableOCRToolStripMenuItem.Text = "Enable OCR";
+            this.enableOCRToolStripMenuItem.CheckedChanged += new System.EventHandler(this.enableOCRToolStripMenuItem_CheckedChanged);
             // 
-            // importCSVToolStripMenuItem
+            // btnMoveStation
             // 
-            this.importCSVToolStripMenuItem.Name = "importCSVToolStripMenuItem";
-            this.importCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.importCSVToolStripMenuItem.Text = "Import CSV";
-            this.importCSVToolStripMenuItem.Click += new System.EventHandler(this.importCSVToolStripMenuItem_Click);
+            this.btnMoveStation.Location = new System.Drawing.Point(530, 33);
+            this.btnMoveStation.Name = "btnMoveStation";
+            this.btnMoveStation.Size = new System.Drawing.Size(80, 23);
+            this.btnMoveStation.TabIndex = 29;
+            this.btnMoveStation.Text = "Move Station";
+            this.btnMoveStation.UseVisualStyleBackColor = true;
+            this.btnMoveStation.Click += new System.EventHandler(this.btnMoveStation_Click);
             // 
             // Main
             // 
@@ -377,6 +399,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importCSVToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem enableOCRToolStripMenuItem;
+        private System.Windows.Forms.Button btnMoveStation;
     }
 }
 

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace EliteDangerousTradingAssistant
 {
@@ -93,6 +94,74 @@ namespace EliteDangerousTradingAssistant
 
                 }
             }
+        }
+
+        public static bool ImportOcrData(GameData data)
+        {
+            bool needUpdate = false;
+
+            foreach (var item in OcrEngine.Commodities)
+            {
+                //data.StarSystems.ForEach(i => Enumerable.Where(i.Stations, j => String.Equals(j.Name, item.System, StringComparison.InvariantCultureIgnoreCase)));
+                List<Station> stations = new List<Station>();
+                foreach (var s in data.StarSystems)
+                {
+                    stations.AddRange(s.Stations);
+                }
+                if (!stations.Exists(i => String.Equals(i.Name, item.Station, StringComparison.InvariantCultureIgnoreCase)))
+                {
+                    var s = new StarSystem {Name = "Unknown"};
+                    if (!data.StarSystems.Exists(i => i.Name == "Unknown"))
+                    {
+                        data.StarSystems.Add(s);
+                    }
+                    else
+                    {
+                        s = data.StarSystems.Single(i => i.Name == "Unknown");
+                    }
+
+                    Station tmpStation = new Station();
+                    tmpStation.Name = item.Station;
+                    s.Stations.Add(tmpStation);
+                    needUpdate = true;
+                    //MessageBox.Show("Warning! Importing OCR data failed. No Station with that name: " + item.Station);
+                    //return;
+                }
+
+                foreach (var system in data.StarSystems)
+                {
+                    if (item.System == "" || String.Equals(system.Name, item.System, StringComparison.InvariantCultureIgnoreCase))
+                        foreach (var station in system.Stations)
+                        {
+                            if (String.Equals(station.Name, item.Station, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                var commodity = station.Commodities.FirstOrDefault(i => String.Equals(i.Name, item.Commodity, StringComparison.InvariantCultureIgnoreCase));
+                                if (commodity != null)
+                                {
+                                    commodity.BuyPrice = item.Buy;
+                                    commodity.SellPrice = item.Sell;
+                                    commodity.Supply = item.Supply;
+                                    commodity.LastUpdated = DateTime.Now;
+                                }
+                                else
+                                {
+                                    commodity = new Commodity
+                                    {
+                                        Name = item.Commodity,
+                                        BuyPrice = item.Buy,
+                                        SellPrice = item.Sell,
+                                        Supply = item.Supply,
+                                        LastUpdated = DateTime.Now
+                                    };
+                                    station.Commodities.Add(commodity);
+                                }
+
+                            }
+                        }
+                }
+            }
+            OcrEngine.Commodities.Clear();
+            return needUpdate;
         }
     }
 }
