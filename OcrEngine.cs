@@ -9,6 +9,45 @@ using Tesseract;
 
 namespace EliteDangerousTradingAssistant
 {
+    public static class Util
+    {
+        public static String PrettyString(this String fixMe)
+        {
+            if (fixMe == null)
+                return null;
+
+            fixMe = fixMe.Trim();
+            string chars = " \t\n\v\f\r-";
+            int i = 0;
+            string properExpression = "";
+            int lenExpression = fixMe.Length;
+            int flag = 1;
+            string symbol = "";
+
+            while (i < lenExpression)
+            {
+                symbol = fixMe.Substring(i, 1).ToLower();
+                if (symbol.IndexOfAny(chars.ToCharArray()) != -1)
+                {
+                    flag = 1;
+                }
+                else
+                {
+                    if (flag == 1)
+                    {
+                        symbol = fixMe.Substring(i, 1).ToUpper();
+                        flag = 0;
+                    }
+                }
+                properExpression = properExpression + symbol;
+                i++;
+            }
+
+            return properExpression;
+        }
+
+    }
+
     public static class OcrEngine
     {
         public static List<string> Processed;
@@ -32,13 +71,11 @@ namespace EliteDangerousTradingAssistant
             public int Demand { get; set; }
             public int Supply { get; set; }
             public int Average { get; set; }
-
             public string System { get; set; }
         }
 
         public static bool IsProcessed(string image)
         {
-            
             isProcessing.WaitOne(-1);
             isProcessing.ReleaseMutex();
             return Processed.Contains(image);
@@ -133,8 +170,8 @@ namespace EliteDangerousTradingAssistant
                 int tmp = 0;
 
                 m.System = "";
-                m.Station = StationName;
-                m.Commodity = tempM[0];
+                m.Station = StationName.PrettyString();
+                m.Commodity = tempM[0].PrettyString();
                 if (Int32.TryParse(tempM[1], out tmp)) m.Sell = tmp;
                 if (Int32.TryParse(tempM[2], out tmp)) m.Buy = tmp;
                 m.Cargo = 0;
@@ -160,6 +197,8 @@ namespace EliteDangerousTradingAssistant
             Processed.Add(image);
             isProcessing.ReleaseMutex();
         }
+
+
 
     }
 }
