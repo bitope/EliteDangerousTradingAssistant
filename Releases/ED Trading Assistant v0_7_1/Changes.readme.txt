@@ -1,7 +1,0 @@
-Changes for 0.7.1
-
-1. Hotfix for route calculation errors. The changes in 0.7 introduced a bug that prevented the Adviser from finding the best routes. The hotfix has changed the Adviser to find one route centered on each system. Compare the results from 0.7 to 0.7.1 using the same inputs, and you will see the difference in the routes that have the highest average profit per trip. 
-
-The adviser uses out/return pairs now instead of individual manifests. 
-
-Example: The Adviser finds that a route from Azeban City to Beagle 2 Landing is the best average profit per trip out of Azeban City. It then removes the return trip, and sees if adding a trip to Freeport and a return trip to Azeban City will increase or decrease the average profit. If it increases, we include the new trip and keep analyzing other routes. If it decreases, we stop analysis and provide the original route.
