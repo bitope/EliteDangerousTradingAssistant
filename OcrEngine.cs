@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -72,6 +73,7 @@ namespace EliteDangerousTradingAssistant
             public int Supply { get; set; }
             public int Average { get; set; }
             public string System { get; set; }
+            public DateTime Timestamp { get; set; }
         }
 
         public static bool IsProcessed(string image)
@@ -88,12 +90,18 @@ namespace EliteDangerousTradingAssistant
             int bottom = 1948;
             int[] columns = { 154, 894, 1069, 1244, 1429, 1795, 2199, 2590 };
 
+            var timestamp = File.GetCreationTime(image);
             Bitmap b = (Bitmap)Bitmap.FromFile(image);
             Graphics g = Graphics.FromImage(b);
+            
+            Bitmap rescaled = new Bitmap(3840,2160);
+            Graphics rescaledG = Graphics.FromImage(rescaled);
+            rescaledG.DrawImage(b,0,0,3840,2160);
+            rescaled.Save("screenshot_"+DateTime.Now.ToString("yyMMdd-HHmmss-")+".jpg",System.Drawing.Imaging.ImageFormat.Jpeg);
             TesseractEngine tess = new TesseractEngine("", "fed", EngineMode.Default);
 
             Pix pix;
-            using (var xz = tess.Process(b))
+            using (var xz = tess.Process(rescaled))
             {
                 pix = xz.Image;
                 pix = pix.ConvertRGBToGray(1.5f, 1.0f, 0.0f);
@@ -153,6 +161,7 @@ namespace EliteDangerousTradingAssistant
                         tempM[c] = xx.GetText().Replace('\n', ' ').Trim();
                         float v = xx.GetMeanConfidence();
 
+                        // Ugly fix for a few read errors on commidities.
                         if (c != 0)
                         {
                             tempM[c] = tempM[c].Replace(".", "").Replace(",", "").Replace(" ", "");
@@ -162,6 +171,15 @@ namespace EliteDangerousTradingAssistant
                             tempM[c] = tempM[c].Replace("LOW", "");
                             tempM[c] = tempM[c].Replace("CR", "");
                             tempM[c] = tempM[c].Replace("HIGH", "").Trim();
+                        }
+                        else
+                        {
+                            tempM[c] = tempM[c].Replace(" AN D ", " AND ");
+                            tempM[c] = tempM[c].Replace("8IOREOUCING", "Bioreducing");
+                            tempM[c] = tempM[c].Replace("8IOREDUCING", "Bioreducing");
+                            tempM[c] = tempM[c].Replace("LANO ", "Land");
+                            tempM[c] = tempM[c].Replace("OOMESTIC", "Domestic");
+                            tempM[c] = tempM[c].Replace("TANTALU M", "Tantalum");
                         }
                         confidence += v;
                     }
@@ -178,22 +196,24 @@ namespace EliteDangerousTradingAssistant
                 if (Int32.TryParse(tempM[4].Split(' ')[0], out tmp)) m.Demand = tmp;
                 if (Int32.TryParse(tempM[5].Split(' ')[0], out tmp)) m.Supply = tmp;
                 if (Int32.TryParse(tempM[6].Split(' ')[0], out tmp)) m.Average = tmp;
+                m.Timestamp = timestamp;
 
                 var dupe = Commodities.SingleOrDefault(i => i.Station == m.Station && i.Commodity == m.Commodity);
-                if (dupe != null)
+                if (dupe != null && dupe.Timestamp<=m.Timestamp)
                 {
                     dupe.Sell = m.Sell;
                     dupe.Buy = m.Buy;
                     dupe.Demand = m.Demand;
                     dupe.Supply = m.Supply;
                     dupe.Average = m.Average;
+                    dupe.Timestamp = m.Timestamp;
                 }
                 else
                 {
                     Commodities.Add(m);
                 }
             }
-
+            
             Processed.Add(image);
             isProcessing.ReleaseMutex();
         }

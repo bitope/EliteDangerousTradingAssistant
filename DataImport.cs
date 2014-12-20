@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -138,12 +139,15 @@ namespace EliteDangerousTradingAssistant
                                 var commodity = station.Commodities.FirstOrDefault(i => String.Equals(i.Name, item.Commodity, StringComparison.InvariantCultureIgnoreCase));
                                 if (commodity != null)
                                 {
-                                    commodity.BuyPrice = item.Buy;
-                                    commodity.SellPrice = item.Sell;
-                                    commodity.Supply = item.Supply;
-                                    commodity.Demand = item.Demand;
-                                    commodity.Average = item.Average;
-                                    commodity.LastUpdated = DateTime.Now;
+                                    if (commodity.LastUpdated <= item.Timestamp)
+                                    {
+                                        commodity.BuyPrice = item.Buy;
+                                        commodity.SellPrice = item.Sell;
+                                        commodity.Supply = item.Supply;
+                                        commodity.Demand = item.Demand;
+                                        commodity.Average = item.Average;
+                                        commodity.LastUpdated = item.Timestamp;
+                                    }
                                 }
                                 else
                                 {
@@ -155,7 +159,7 @@ namespace EliteDangerousTradingAssistant
                                         Supply = item.Supply,
                                         Demand = item.Demand,
                                         Average = item.Average,
-                                        LastUpdated = DateTime.Now
+                                        LastUpdated = item.Timestamp
                                     };
                                     station.Commodities.Add(commodity);
                                 }
