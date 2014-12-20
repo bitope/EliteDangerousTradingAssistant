@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Tesseract;
 
 namespace EliteDangerousTradingAssistant
@@ -93,11 +94,29 @@ namespace EliteDangerousTradingAssistant
             var timestamp = File.GetCreationTime(image);
             Bitmap b = (Bitmap)Bitmap.FromFile(image);
             Graphics g = Graphics.FromImage(b);
-            
-            Bitmap rescaled = new Bitmap(3840,2160);
-            Graphics rescaledG = Graphics.FromImage(rescaled);
-            rescaledG.DrawImage(b,0,0,3840,2160);
-            rescaled.Save("screenshot_"+DateTime.Now.ToString("yyMMdd-HHmmss-")+".jpg",System.Drawing.Imaging.ImageFormat.Jpeg);
+            var aspect = (b.Width*100)/ b.Height;
+            Bitmap rescaled = new Bitmap(3840, 2160);
+            if (aspect == 160)
+            {
+                RectangleF srcR = new RectangleF(0,b.Height*0.05f,b.Width,b.Height-(b.Height*0.10f));
+                Graphics rescaledG = Graphics.FromImage(rescaled);
+                rescaledG.DrawImage(b, new RectangleF(0,0,3840,2160),srcR,GraphicsUnit.Pixel);
+                rescaled.Save("processed\\screenshot_" + DateTime.Now.ToString("yyMMdd-HHmmss-") + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
+            else if (aspect == 177)
+            {
+                Graphics rescaledG = Graphics.FromImage(rescaled);
+                rescaledG.DrawImage(b, 0, 0, 3840, 2160);
+                rescaled.Save("processed\\screenshot_" + DateTime.Now.ToString("yyMMdd-HHmmss-") + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
+            else
+            {
+                MessageBox.Show("Unknown aspect ratio in screenshot.");
+                Graphics rescaledG = Graphics.FromImage(rescaled);
+                rescaledG.DrawImage(b, 0, 0, 3840, 2160);
+                rescaled.Save("processed\\screenshot_" + DateTime.Now.ToString("yyMMdd-HHmmss-") + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
+
             TesseractEngine tess = new TesseractEngine("", "fed", EngineMode.Default);
 
             Pix pix;
@@ -177,9 +196,11 @@ namespace EliteDangerousTradingAssistant
                             tempM[c] = tempM[c].Replace(" AN D ", " AND ");
                             tempM[c] = tempM[c].Replace("8IOREOUCING", "Bioreducing");
                             tempM[c] = tempM[c].Replace("8IOREDUCING", "Bioreducing");
-                            tempM[c] = tempM[c].Replace("LANO ", "Land");
+                            tempM[c] = tempM[c].Replace("LANO ", "Land ");
                             tempM[c] = tempM[c].Replace("OOMESTIC", "Domestic");
                             tempM[c] = tempM[c].Replace("TANTALU M", "Tantalum");
+                            tempM[c] = tempM[c].Replace("AUTD-", "AUTO-");
+                            tempM[c] = tempM[c].Replace("LANDENRICHMENT SYSTEMS", "LAND ENRICHMENT SYSTEMS");
                         }
                         confidence += v;
                     }
