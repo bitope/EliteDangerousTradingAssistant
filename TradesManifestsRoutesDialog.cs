@@ -545,9 +545,15 @@ namespace EliteDangerousTradingAssistant
         {
             SuspendLayout();
 
+            var startStationIndex = StartStationFilterComboBox.SelectedIndex;
+            var endStationIndex = EndStationFilterComboBox.SelectedIndex;
+
             var temp = StartSystemFilterComboBox.SelectedIndex;
             StartSystemFilterComboBox.SelectedIndex = EndSystemFilterComboBox.SelectedIndex;
             EndSystemFilterComboBox.SelectedIndex = temp;
+
+            StartStationFilterComboBox.SelectedIndex = endStationIndex;
+            EndStationFilterComboBox.SelectedIndex = startStationIndex;
 
             ResumeLayout();
             SetView();
