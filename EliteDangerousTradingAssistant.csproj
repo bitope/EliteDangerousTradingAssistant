@@ -70,6 +70,7 @@
     <Compile Include="Adviser.cs" />
     <Compile Include="Commodity.cs" />
     <Compile Include="DataImport.cs" />
+    <Compile Include="ExtentionMethods.cs" />
     <Compile Include="GameData.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>

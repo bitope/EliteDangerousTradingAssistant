@@ -27,6 +27,8 @@ namespace EliteDangerousTradingAssistant
             SystemComboBox.Items.Clear();
             StationComboBox.Items.Clear();
             ocrTimer=new Timer();
+
+            CommoditiesGrid.DoubleBuffered(true);
         }
 
         private void AddSystemButton_Click(object sender, System.EventArgs e)
@@ -160,7 +162,7 @@ namespace EliteDangerousTradingAssistant
             foreach (Commodity commodity in selectedStation.Commodities)
             {
                 DataRow newRow = bindingTable.NewRow();
-
+                
                 newRow["Index"] = index;
                 newRow["Commodity"] = commodity.Name;
                 newRow["BuyPrice"] = commodity.BuyPrice;
@@ -184,19 +186,19 @@ namespace EliteDangerousTradingAssistant
             deleteColumn.UseColumnTextForButtonValue = true;
             CommoditiesGrid.Columns.Insert(0, deleteColumn);
 
-            DataGridViewButtonColumn upColumn = new DataGridViewButtonColumn();
-            upColumn.Name = "Up";
-            upColumn.HeaderText = "Up";
-            upColumn.Text = "▲";
-            upColumn.UseColumnTextForButtonValue = true;
-            CommoditiesGrid.Columns.Insert(7, upColumn);
+            //DataGridViewButtonColumn upColumn = new DataGridViewButtonColumn();
+            //upColumn.Name = "Up";
+            //upColumn.HeaderText = "Up";
+            //upColumn.Text = "▲";
+            //upColumn.UseColumnTextForButtonValue = true;
+            //CommoditiesGrid.Columns.Insert(7, upColumn);
 
-            DataGridViewButtonColumn downColumn = new DataGridViewButtonColumn();
-            downColumn.Name = "Down";
-            downColumn.HeaderText = "Down";
-            downColumn.Text = "▼";
-            downColumn.UseColumnTextForButtonValue = true;
-            CommoditiesGrid.Columns.Insert(8, downColumn);
+            //DataGridViewButtonColumn downColumn = new DataGridViewButtonColumn();
+            //downColumn.Name = "Down";
+            //downColumn.HeaderText = "Down";
+            //downColumn.Text = "▼";
+            //downColumn.UseColumnTextForButtonValue = true;
+            //CommoditiesGrid.Columns.Insert(8, downColumn);
             CommoditiesGrid.ResumeLayout(true);
         }
 
