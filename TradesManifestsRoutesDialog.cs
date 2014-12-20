@@ -90,12 +90,14 @@ namespace EliteDangerousTradingAssistant
                 EndSystemFilterComboBox.Items.Add(endSystem);
             EndSystemFilterComboBox.SelectedIndex = 0;
 
+            StartStationFilterComboBox.Items.Clear();
             StartStationFilterComboBox.Items.Add("All");
             uniqueStartStations.Sort();
             foreach (string station in uniqueStartStations)
                 StartStationFilterComboBox.Items.Add(station);
             StartStationFilterComboBox.SelectedIndex = 0;
 
+            EndStationFilterComboBox.Items.Clear();
             EndStationFilterComboBox.Items.Add("All");
             uniqueEndStations.Sort();
             foreach (string station in uniqueEndStations)
@@ -107,7 +109,14 @@ namespace EliteDangerousTradingAssistant
             LoadFilterOperators(InvestmentFilterOperatorComboBox);
             LoadFilterOperators(ProfitFilterOperatorComboBox);
             LoadFilterOperators(ROIFilterOperatorComboBox);
+
+            //StartSystemFilterComboBox.DataSource = gameData.StarSystems;
+            //StartSystemFilterComboBox.DataBindings.Add("Text", gameData.StarSystems, "Name");
+            //StartSystemFilterComboBox.DisplayMember = "Name";
+            //StartSystemFilterComboBox.ValueMember = "Name";
+
         }
+
         private void LoadFilterOperators(ComboBox comboBox)
         {
             comboBox.Items.Add("=");
@@ -168,6 +177,7 @@ namespace EliteDangerousTradingAssistant
                 tradesBindingTable.Rows.Add(newRow);
             }
         }
+
         private void SetTradesView()
         {
             tradesRowFilter = string.Empty;
@@ -218,6 +228,7 @@ namespace EliteDangerousTradingAssistant
             tradesViewTable = tradesBindingTable.DefaultView.ToTable();
             TradesGrid.DataSource = tradesViewTable;
         }
+
         private void AddTradesRowFilter(string filter)
         {
             tradesRowFilter = string.IsNullOrEmpty(tradesRowFilter) ? string.Concat("(", filter, ")") : string.Concat(tradesRowFilter, " AND (", filter, ")");
@@ -263,6 +274,7 @@ namespace EliteDangerousTradingAssistant
                 index++;
             }
         }
+
         private void SetManifestsView()
         {
             manifestsRowFilter = string.Empty;
@@ -357,6 +369,7 @@ namespace EliteDangerousTradingAssistant
                 index++;
             }
         }
+
         private void SetRoutesView()
         {
             routesRowFilter = string.Empty;
@@ -395,22 +408,71 @@ namespace EliteDangerousTradingAssistant
         {
             SetView();
         }
+
         private void StartSystemFilterComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            StartStationFilterComboBox.Items.Clear();
+            StartStationFilterComboBox.Items.Add("All");
+
+            var selectedStation = gameData.StarSystems.Find(i => i.Name == (string) ((ComboBox) sender).SelectedItem);
+            if (selectedStation != null)
+            {
+                foreach (var station in selectedStation.Stations)
+                {
+                    StartStationFilterComboBox.Items.Add(station.Name);
+                }
+            }
+            else
+            {
+                var uniqueStations = new List<string>();
+                foreach (Trade trade in gameData.Trades)
+                    if (uniqueStations.Contains(trade.StartStation.Name) == false)
+                        uniqueStations.Add(trade.StartStation.Name);
+                uniqueStations.Sort();
+                StartStationFilterComboBox.Items.AddRange(uniqueStations.ToArray());                
+            }
+
+            StartStationFilterComboBox.SelectedIndex = 0;
             SetView();
         }
+
         private void EndSystemFilterComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            EndStationFilterComboBox.Items.Clear();
+            EndStationFilterComboBox.Items.Add("All");
+
+            var selectedStation = gameData.StarSystems.Find(i => i.Name == (string)((ComboBox)sender).SelectedItem);
+            if (selectedStation != null)
+            {
+                foreach (var station in selectedStation.Stations)
+                {
+                    EndStationFilterComboBox.Items.Add(station.Name);
+                }
+            }
+            else
+            {
+                var uniqueStations = new List<string>();
+                foreach (Trade trade in gameData.Trades)
+                    if (uniqueStations.Contains(trade.EndStation.Name) == false)
+                        uniqueStations.Add(trade.EndStation.Name);
+                uniqueStations.Sort();
+                EndStationFilterComboBox.Items.AddRange(uniqueStations.ToArray());
+            }
+
+            EndStationFilterComboBox.SelectedIndex = 0;
             SetView();
         }
+
         private void StartStationFilterComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetView();
         }
+
         private void EndStationFilterComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetView();
         }
+
         private void BuyPriceFilterOperatorComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetView();
