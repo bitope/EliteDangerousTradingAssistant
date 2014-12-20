@@ -53,8 +53,8 @@
             this.saveAndExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.enableOCRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.btnMoveStation = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CargoSlotsNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CapitalNumericUpDown)).BeginInit();
@@ -225,6 +225,7 @@
             this.CommoditiesGrid.TabStop = false;
             this.CommoditiesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CommoditiesGrid_CellContentClick);
             this.CommoditiesGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.CommoditiesGrid_CellEndEdit);
+            this.CommoditiesGrid.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.CommoditiesGrid_CellFormatting);
             // 
             // TimestampAllButton
             // 
@@ -298,9 +299,17 @@
             // importCSVToolStripMenuItem
             // 
             this.importCSVToolStripMenuItem.Name = "importCSVToolStripMenuItem";
-            this.importCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.importCSVToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.importCSVToolStripMenuItem.Text = "Import CSV";
             this.importCSVToolStripMenuItem.Click += new System.EventHandler(this.importCSVToolStripMenuItem_Click);
+            // 
+            // enableOCRToolStripMenuItem
+            // 
+            this.enableOCRToolStripMenuItem.CheckOnClick = true;
+            this.enableOCRToolStripMenuItem.Name = "enableOCRToolStripMenuItem";
+            this.enableOCRToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.enableOCRToolStripMenuItem.Text = "Enable OCR";
+            this.enableOCRToolStripMenuItem.CheckedChanged += new System.EventHandler(this.enableOCRToolStripMenuItem_CheckedChanged);
             // 
             // panel1
             // 
@@ -328,14 +337,6 @@
             this.panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 8);
             this.panel1.Size = new System.Drawing.Size(650, 121);
             this.panel1.TabIndex = 30;
-            // 
-            // enableOCRToolStripMenuItem
-            // 
-            this.enableOCRToolStripMenuItem.CheckOnClick = true;
-            this.enableOCRToolStripMenuItem.Name = "enableOCRToolStripMenuItem";
-            this.enableOCRToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.enableOCRToolStripMenuItem.Text = "Enable OCR";
-            this.enableOCRToolStripMenuItem.CheckedChanged += new System.EventHandler(this.enableOCRToolStripMenuItem_CheckedChanged);
             // 
             // btnMoveStation
             // 

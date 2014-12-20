@@ -201,6 +201,7 @@ namespace EliteDangerousTradingAssistant
                             tempM[c] = tempM[c].Replace("TANTALU M", "Tantalum");
                             tempM[c] = tempM[c].Replace("AUTD-", "AUTO-");
                             tempM[c] = tempM[c].Replace("LANDENRICHMENT SYSTEMS", "LAND ENRICHMENT SYSTEMS");
+                            tempM[c] = tempM[c].Replace("MEOICINES", "MEDICINES");
                         }
                         confidence += v;
                     }

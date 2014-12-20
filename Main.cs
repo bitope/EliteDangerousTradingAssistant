@@ -136,13 +136,17 @@ namespace EliteDangerousTradingAssistant
             bindingTable.Columns.Add("SellPrice");
             bindingTable.Columns.Add("BuyPrice");
             bindingTable.Columns.Add("Supply");
+            bindingTable.Columns.Add("Demand");
+            bindingTable.Columns.Add("Average");
             bindingTable.Columns.Add("LastUpdated");
 
             bindingTable.Columns["Index"].DataType = System.Type.GetType("System.Decimal");
-            bindingTable.Columns["SellPrice"].DataType = System.Type.GetType("System.Decimal");
-            bindingTable.Columns["BuyPrice"].DataType = System.Type.GetType("System.Decimal");
-            bindingTable.Columns["Supply"].DataType = System.Type.GetType("System.Decimal");
-            bindingTable.Columns["Supply"].DataType = System.Type.GetType("System.Decimal");
+            bindingTable.Columns["Commodity"].DataType = System.Type.GetType("System.String");
+            bindingTable.Columns["SellPrice"].DataType = System.Type.GetType("System.Int32");
+            bindingTable.Columns["BuyPrice"].DataType = System.Type.GetType("System.Int32");
+            bindingTable.Columns["Supply"].DataType = System.Type.GetType("System.Int32");
+            bindingTable.Columns["Demand"].DataType = System.Type.GetType("System.Int32");
+            bindingTable.Columns["Average"].DataType = System.Type.GetType("System.Int32");
             bindingTable.Columns["LastUpdated"].DataType = System.Type.GetType("System.DateTime");
 
             CommoditiesGrid.Columns.Clear();
@@ -168,6 +172,8 @@ namespace EliteDangerousTradingAssistant
                 newRow["BuyPrice"] = commodity.BuyPrice;
                 newRow["SellPrice"] = commodity.SellPrice;
                 newRow["Supply"] = commodity.Supply;
+                newRow["Demand"] = commodity.Demand;
+                newRow["Average"] = commodity.Average;
                 newRow["LastUpdated"] = commodity.LastUpdated;
 
                 bindingTable.Rows.Add(newRow);
@@ -177,6 +183,15 @@ namespace EliteDangerousTradingAssistant
             CommoditiesGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             CommoditiesGrid.DataSource = bindingTable;
 
+            CommoditiesGrid.Columns["Index"].FillWeight = 1;
+            CommoditiesGrid.Columns["Commodity"].FillWeight = 200;
+            CommoditiesGrid.Columns["SellPrice"].FillWeight = 100;
+            CommoditiesGrid.Columns["BuyPrice"].FillWeight = 100;
+            CommoditiesGrid.Columns["Supply"].FillWeight = 100;
+            CommoditiesGrid.Columns["Demand"].FillWeight = 100;
+            CommoditiesGrid.Columns["Average"].FillWeight = 100;
+            CommoditiesGrid.Columns["LastUpdated"].FillWeight = 150;
+
             CommoditiesGrid.Columns["Index"].Visible = false;
 
             DataGridViewButtonColumn deleteColumn = new DataGridViewButtonColumn();
@@ -184,6 +199,7 @@ namespace EliteDangerousTradingAssistant
             deleteColumn.HeaderText = "Delete";
             deleteColumn.Text = "Delete";
             deleteColumn.UseColumnTextForButtonValue = true;
+            deleteColumn.FillWeight = 75f;
             CommoditiesGrid.Columns.Insert(0, deleteColumn);
 
             //DataGridViewButtonColumn upColumn = new DataGridViewButtonColumn();
@@ -191,6 +207,7 @@ namespace EliteDangerousTradingAssistant
             //upColumn.HeaderText = "Up";
             //upColumn.Text = "▲";
             //upColumn.UseColumnTextForButtonValue = true;
+            //upColumn.FillWeight = 50;
             //CommoditiesGrid.Columns.Insert(7, upColumn);
 
             //DataGridViewButtonColumn downColumn = new DataGridViewButtonColumn();
@@ -198,7 +215,9 @@ namespace EliteDangerousTradingAssistant
             //downColumn.HeaderText = "Down";
             //downColumn.Text = "▼";
             //downColumn.UseColumnTextForButtonValue = true;
+            //downColumn.FillWeight = 50;
             //CommoditiesGrid.Columns.Insert(8, downColumn);
+
             CommoditiesGrid.ResumeLayout(true);
         }
 
@@ -384,9 +403,9 @@ namespace EliteDangerousTradingAssistant
             Commodity editedCommodity = selectedStation.Commodities[editedCommodityIndex];
 
             string editedName = (string)commodity.Cells["Commodity"].Value;
-            decimal editedBuy = (decimal)commodity.Cells["BuyPrice"].Value;
-            decimal editedSell = (decimal)commodity.Cells["SellPrice"].Value;
-            decimal editedSupply = (decimal)commodity.Cells["Supply"].Value;
+            int editedBuy = (int)commodity.Cells["BuyPrice"].Value;
+            int editedSell = (int)commodity.Cells["SellPrice"].Value;
+            int editedSupply = (int)commodity.Cells["Supply"].Value;
 
             editedCommodity.Name = editedName;
             editedCommodity.BuyPrice = editedBuy;
@@ -406,7 +425,7 @@ namespace EliteDangerousTradingAssistant
 
             int selectedSystemIndex = SystemComboBox.SelectedIndex;
             int selectedStationIndex = StationComboBox.SelectedIndex;
-            int selectedCommodityIndex = int.Parse(CommoditiesGrid.Rows[e.RowIndex].Cells["Index"].Value.ToString());
+            int selectedCommodityIndex = int.Parse(CommoditiesGrid.Rows[e.RowIndex].Cells["Index"].Value.ToString()); //TODO:Null pointer check
 
             switch (CommoditiesGrid.Columns[e.ColumnIndex].Name.ToString())
             {
@@ -564,6 +583,36 @@ namespace EliteDangerousTradingAssistant
                 SystemComboBox.Items.Add(starSystem.Name);
 
             SystemComboBox.SelectedIndex = 0;
+        }
+
+        private void CommoditiesGrid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= bindingTable.Rows.Count)
+                return;
+
+            if (e.ColumnIndex == 3 || e.ColumnIndex == 4)
+            {
+                var row = bindingTable.Rows[e.RowIndex];
+                var buy = (int) row["BuyPrice"];
+                var sell = (int) row["SellPrice"];
+                var avg = (int)row["Average"];
+
+                e.CellStyle.BackColor = Color.White;
+
+                if (buy != 0 && buy < avg && e.ColumnIndex == 4 && avg != 0)
+                    e.CellStyle.BackColor = Color.LightGreen;
+
+                if (sell != 0 && sell > avg && e.ColumnIndex == 3 && avg != 0)
+                    e.CellStyle.BackColor = Color.LightGreen;
+
+                if (sell != 0 && buy != 0 && buy < sell && e.ColumnIndex == 4)
+                    e.CellStyle.BackColor = Color.LightCoral;
+
+                if (sell != 0 && buy != 0 && sell > buy && e.ColumnIndex == 3)
+                    e.CellStyle.BackColor = Color.LightCoral;
+
+            }
+
         }
     }
 }
