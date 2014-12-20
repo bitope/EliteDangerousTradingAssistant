@@ -141,6 +141,8 @@ namespace EliteDangerousTradingAssistant
                                     commodity.BuyPrice = item.Buy;
                                     commodity.SellPrice = item.Sell;
                                     commodity.Supply = item.Supply;
+                                    commodity.Demand = item.Demand;
+                                    commodity.Average = item.Average;
                                     commodity.LastUpdated = DateTime.Now;
                                 }
                                 else
@@ -151,6 +153,8 @@ namespace EliteDangerousTradingAssistant
                                         BuyPrice = item.Buy,
                                         SellPrice = item.Sell,
                                         Supply = item.Supply,
+                                        Demand = item.Demand,
+                                        Average = item.Average,
                                         LastUpdated = DateTime.Now
                                     };
                                     station.Commodities.Add(commodity);

@@ -9,6 +9,8 @@ namespace EliteDangerousTradingAssistant
         private decimal buyPrice;
         private decimal sellPrice;
         private decimal supply;
+        private decimal demand;
+        private decimal galacticAverage;
         private DateTime lastUpdated;
 
         public string Name
@@ -31,6 +33,17 @@ namespace EliteDangerousTradingAssistant
             get { return supply; }
             set { supply = value; }
         }
+        public decimal Demand
+        {
+            get { return demand; }
+            set { demand = value; }
+        }
+        public decimal Average
+        {
+            get { return galacticAverage; }
+            set { galacticAverage = value; }
+        }
+
         public DateTime LastUpdated
         {
             get { return lastUpdated; }
@@ -47,12 +60,14 @@ namespace EliteDangerousTradingAssistant
             buyPrice = copy.BuyPrice;
             sellPrice = copy.SellPrice;
             supply = copy.supply;
+            demand = copy.demand;
+            galacticAverage = copy.galacticAverage;
             lastUpdated = copy.LastUpdated;
         }
 
         public bool Equals(Commodity compareTo)
         {
-            if (name != compareTo.Name || buyPrice != compareTo.BuyPrice || sellPrice != compareTo.SellPrice || supply != compareTo.Supply)
+            if (name != compareTo.Name || buyPrice != compareTo.BuyPrice || sellPrice != compareTo.SellPrice || supply != compareTo.Supply || supply != compareTo.Demand)
                 return false;
 
             return true;
